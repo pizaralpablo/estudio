@@ -13,9 +13,6 @@ spec:
     metadata:
       labels:
         app: {{ .Values.name }}
-        {{- with .Values.podLabels }}
-        {{- toYaml . | nindent 8 }}
-        {{- end }}
     spec:
       containers:
         - name: {{ .Values.name }}
@@ -26,4 +23,5 @@ spec:
               containerPort: 80
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+
 
