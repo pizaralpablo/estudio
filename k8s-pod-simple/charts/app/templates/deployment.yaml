@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: test
-          image: nginxs
+          image: nginx
           imagePullPolicy: Always
           ports:
             - name: http
@@ -28,6 +28,7 @@ spec:
             requests:
               cpu: 100m
               memory: 128Mi
+
 
 
 
