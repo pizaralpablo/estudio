@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.name }}
+  name: test
   labels:
-    app: {{ .Values.name }}
+    app: test
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: 2
   selector:
     matchLabels:
-      app: {{ .Values.name }}
+      app: test
   template:
     metadata:
       labels:
-        app: {{ .Values.name }}
+        app: test
     spec:
       containers:
-        - name: {{ .Values.name }}
+        - name: test
           image: nginx
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          imagePullPolicy: Always
           ports:
             - name: http
               containerPort: 80
@@ -28,6 +28,7 @@ spec:
             requests:
               cpu: 100m
               memory: 128Mi
+
 
 
 
