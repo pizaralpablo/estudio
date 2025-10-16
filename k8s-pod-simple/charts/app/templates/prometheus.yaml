@@ -1,17 +1,31 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: istio-prometheus
+  name: kube-prometheus-stack
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   project: default
   source:
-    repoURL: https://istio-release.storage.googleapis.com/charts
-    chart: prometheus
-    targetRevision: "1.22.1"
+    repoURL: https://prometheus-community.github.io/helm-charts
+    chart: kube-prometheus-stack
+    targetRevision: ">0.0.0"   # o fija una versión específica
+    helm:
+      values: |
+        # Retención y recursos modestos para Docker Desktop
+        prometheus:
+          prometheusSpec:
+            retention: 15d
+            resources:
+              requests: { cpu: 200m, memory: 512Mi }
+              limits:   { cpu: 500m, memory: 1Gi }
+        grafana:
+          enabled: true
+          defaultDashboardsTimezone: browser
   destination:
     server: https://kubernetes.default.svc
-    namespace: istio-system
+    namespace: monitoring
   syncPolicy:
     automated:
       prune: true
