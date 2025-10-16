@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://istio-release.storage.googleapis.com/charts
+    repoURL: https://kiali.org/helm-charts
     chart: kiali-server
-    targetRevision: "X.Y.Z"    # ← usa una versión que sí exista
+    targetRevision: ">0.0.0"    # toma la última; o fija una específica de la lista
     helm:
       values: |
         auth:
@@ -18,4 +18,6 @@ spec:
     namespace: istio-system
   syncPolicy:
     automated: { prune: true, selfHeal: true }
+    syncOptions:
+      - CreateNamespace=true
 
