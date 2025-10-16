@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://istio-release.storage.googleapis.com/charts
     chart: kiali-server
-    targetRevision: "1.22.1"
+    targetRevision: "X.Y.Z"    # ← usa una versión que sí exista
     helm:
       values: |
         auth:
@@ -17,6 +17,5 @@ spec:
     server: https://kubernetes.default.svc
     namespace: istio-system
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+    automated: { prune: true, selfHeal: true }
+
