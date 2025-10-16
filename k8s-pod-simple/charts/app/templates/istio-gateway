@@ -1,0 +1,27 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: web-gw
+  namespace: demo
+spec:
+  selector:
+    istio: ingressgateway     # usa el istio-ingressgateway por defecto
+  servers:
+    - port: { number: 80, name: http, protocol: HTTP }
+      hosts: ["demo.local"]
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: web-vs
+  namespace: demo
+spec:
+  hosts: ["demo.local"]
+  gateways: ["web-gw"]
+  http:
+    - match:
+        - uri: { prefix: "/" }
+      route:
+        - destination:
+            host: web-svc.demo.svc.cluster.local
+            port: { number: 80 }
