@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: test
-          image: nginx:latest
+          image: nginx:1.25.5-alpine
           imagePullPolicy: Always
           ports:
             - name: http
@@ -28,6 +28,7 @@ spec:
             requests:
               cpu: 100m
               memory: 128Mi
+
 
 
 
