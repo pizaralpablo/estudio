@@ -28,3 +28,15 @@ spec:
             requests:
               cpu: 100m
               memory: 128Mi
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5   # esperar 5 seg antes de empezar
+            periodSeconds: 10        # chequear cada 10 seg
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 3
+            periodSeconds: 5
