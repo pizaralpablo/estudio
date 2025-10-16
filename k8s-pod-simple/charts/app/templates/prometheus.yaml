@@ -1,17 +1,26 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: istio-prometheus
+  name: kube-prometheus-stack
   namespace: argocd
 spec:
   project: default
   source:
-    repoURL: https://istio-release.storage.googleapis.com/charts
-    chart: prometheus
-    targetRevision: ">0.0.0"
+    repoURL: https://prometheus-community.github.io/helm-charts
+    chart: kube-prometheus-stack
+    targetRevision: ">0.0.0"     # toma la última versión disponible
+    helm:
+      values: |
+        prometheus:
+          prometheusSpec:
+            # SIN PVC: usa emptyDir para evitar Pending en Docker Desktop/minikube
+            storageSpec: {}
+            retention: "15d"
+        grafana:
+          enabled: true
   destination:
     server: https://kubernetes.default.svc
-    namespace: istio-system
+    namespace: monitoring
   syncPolicy:
     automated:
       prune: true
