@@ -39,4 +39,4 @@ spec:
     - name: http
       port: 9090
       targetPort: 9090
-      nodePort: 30900
+      nodePort: 30901
