@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: istio-kiali
-  namespace: argocd
+  namespace: demo
 spec:
   project: default
   source:
